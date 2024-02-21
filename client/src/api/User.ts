@@ -41,6 +41,17 @@ export function login(email: string, password: string): Promise<void> {
     .then(() => undefined);
 }
 
+export function logout(): Promise<void> {
+  return fetch("/api/logout", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(validateResponse)
+    .then(() => undefined);
+}
+
 export function fetchMe(): Promise<User> {
   return fetch("/api/users/me")
     .then(validateResponse)
