@@ -32,7 +32,11 @@ export const RegisterForm: FC<IRegisterFormProps> = () => {
 
   const registerMutation = useMutation(
     {
-      mutationFn: registerUser,
+      mutationFn: (data: {
+        username: string;
+        email: string;
+        password: string;
+      }) => registerUser(data.username, data.email, data.password),
     },
     queryClient
   );
@@ -41,7 +45,7 @@ export const RegisterForm: FC<IRegisterFormProps> = () => {
     <form
       className="register-form"
       onSubmit={handleSubmit(({ username, email, password }) => {
-        registerMutation.mutate(username, email, password);
+        registerMutation.mutate({ username, email, password });
       })}
     >
       <FormField label="Имя" errorMessage={errors.username?.message}>
