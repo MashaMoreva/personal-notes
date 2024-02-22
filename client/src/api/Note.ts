@@ -12,21 +12,21 @@ export const NoteSchema = z.object({
 
 export type Note = z.infer<typeof NoteSchema>;
 
-export const NoteList = z.array(NoteSchema);
+export const NotesList = z.array(NoteSchema);
 
-export type NoteList = z.infer<typeof NoteList>;
+export type NotesList = z.infer<typeof NotesList>;
 
-export const FetchNoteListSchema = z.object({
-  list: NoteList,
+export const FetchNotesListSchema = z.object({
+  list: NotesList,
   pageCount: z.number(),
 });
 
-type FetchNoteListResponse = z.infer<typeof FetchNoteListSchema>;
+type FetchNotesListResponse = z.infer<typeof FetchNotesListSchema>;
 
-export function fetchNoteList(): Promise<FetchNoteListResponse> {
+export function fetchNotesList(): Promise<FetchNotesListResponse> {
   return fetch("/api/notes")
     .then((response) => response.json())
-    .then((data) => FetchNoteListSchema.parse(data));
+    .then((data) => FetchNotesListSchema.parse(data));
 }
 
 interface IdleRequestState {
@@ -39,7 +39,7 @@ interface LoadingRequestState {
 
 interface SuccessRequestState {
   status: "success";
-  data: FetchNoteListResponse;
+  data: FetchNotesListResponse;
 }
 interface ErrorRequestState {
   status: "error";
@@ -52,12 +52,12 @@ type RequestState =
   | SuccessRequestState
   | ErrorRequestState;
 
-export function useNoteList() {
+export function useNotesList() {
   const [state, setState] = useState<RequestState>({ status: "idle" });
 
   useEffect(() => {
     if (state.status === "pending") {
-      fetchNoteList()
+      fetchNotesList()
         .then((data) => {
           setState({ status: "success", data });
         })
