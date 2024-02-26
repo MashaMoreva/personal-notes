@@ -51,6 +51,10 @@ export const LoginForm: FC<ILoginFormProps> = () => {
         <input type="password" {...register("password")} />
       </FormField>
 
+      {loginMutation.error && (
+        <span className="error-message">{loginMutation.error.message}</span>
+      )}
+
       <Button type="submit" isLoading={loginMutation.isPending}>
         Войти
       </Button>

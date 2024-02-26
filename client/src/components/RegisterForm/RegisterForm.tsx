@@ -58,6 +58,10 @@ export const RegisterForm: FC<IRegisterFormProps> = () => {
         <input type="password" {...register("password")} />
       </FormField>
 
+      {registerMutation.error && (
+        <span className="error-message">{registerMutation.error.message}</span>
+      )}
+
       <Button type="submit" isLoading={registerMutation.isPending}>
         Зарегистрироваться
       </Button>
