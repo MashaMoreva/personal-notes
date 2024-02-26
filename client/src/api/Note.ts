@@ -80,7 +80,7 @@ export function useNotesList() {
 }
 
 export function createNote(title: string, text: string): Promise<void> {
-  return fetch("/api/posts", {
+  return fetch("/api/notes", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
