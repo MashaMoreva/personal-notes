@@ -24,3 +24,7 @@ p {
   height: 100vh;
   color: var(--text-primary);
 }
+
+.error-message {
+  color: var(--error);
+}
