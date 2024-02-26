@@ -6,12 +6,14 @@ import { NoteForm } from "../NoteForm";
 import { queryClient } from "../../api/queryClient";
 import { UserView } from "../UserView";
 import { Layout } from "../Layout";
+import { FetchNotesListView } from "../NotesListView/FetchNotesListView";
+import { LogoutButton } from "../LogoutButton";
 
 export const Account = () => {
   const meQuery = useQuery(
     {
       queryFn: () => fetchMe(),
-      queryKey: ["users", "me"],
+      queryKey: ["me"],
     },
     queryClient
   );
@@ -25,6 +27,8 @@ export const Account = () => {
         <Layout>
           <UserView />
           <NoteForm />
+          <FetchNotesListView />
+          <LogoutButton />
         </Layout>
       );
   }
