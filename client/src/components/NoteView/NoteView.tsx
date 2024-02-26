@@ -21,7 +21,7 @@ export const NoteView: FC<NoteViewProps> = ({ note }) => {
   return (
     <div className="note-view">
       <div className="note-view__head">
-        <p className="note-view__datetime">{formatDate(Date.now())}</p>
+        <p className="note-view__datetime">{formatDate(note.createdAt)}</p>
         <p className="note-view__title">{note.title}</p>
       </div>
 
