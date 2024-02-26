@@ -14,9 +14,9 @@ interface IRegisterFormProps {}
 const RegisterSchema = z.object({
   username: z
     .string()
-    .min(3, "Минимальная длина имени пользователя - 3 символа"),
+    .min(5, "Минимальная длина имени пользователя - 5 символов"),
   email: z.string().email("Введите корректный email"),
-  password: z.string().min(6, "Минимальная длина пароля - 6 символов"),
+  password: z.string().min(8, "Минимальная длина пароля - 8 символов"),
 });
 
 type RegisterForm = z.infer<typeof RegisterSchema>;
@@ -57,8 +57,6 @@ export const RegisterForm: FC<IRegisterFormProps> = () => {
       <FormField label="Пароль" errorMessage={errors.password?.message}>
         <input type="password" {...register("password")} />
       </FormField>
-
-      {registerMutation.error && <span>{registerMutation.error.message}</span>}
 
       <Button type="submit" isLoading={registerMutation.isPending}>
         Зарегистрироваться
