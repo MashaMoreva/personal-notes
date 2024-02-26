@@ -12,10 +12,8 @@ import { queryClient } from "../../api/queryClient";
 interface ILoginFormProps {}
 
 const LoginSchema = z.object({
-  username: z
-    .string()
-    .min(5, "Минимальная длина имени пользователя - 5 символов"),
-  password: z.string().min(8, "Минимальная длина пароля - 8ы символов"),
+  email: z.string().email("Введите корректный email"),
+  password: z.string().min(8, "Минимальная длина пароля - 8 символов"),
 });
 
 type LoginForm = z.infer<typeof LoginSchema>;
@@ -31,8 +29,11 @@ export const LoginForm: FC<ILoginFormProps> = () => {
 
   const loginMutation = useMutation(
     {
-      mutationFn: (data: { username: string; password: string }) =>
-        login(data.username, data.password),
+      mutationFn: (data: { email: string; password: string }) =>
+        login(data.email, data.password),
+      onSuccess() {
+        queryClient.invalidateQueries({ queryKey: ["me"] });
+      },
     },
     queryClient
   );
@@ -40,12 +41,12 @@ export const LoginForm: FC<ILoginFormProps> = () => {
   return (
     <form
       className="login-form"
-      onSubmit={handleSubmit(({ username, password }) => {
-        loginMutation.mutate({ username, password });
+      onSubmit={handleSubmit(({ email, password }) => {
+        loginMutation.mutate({ email, password });
       })}
     >
-      <FormField label="Имя" errorMessage={errors.username?.message}>
-        <input type="text" {...register("username")} />
+      <FormField label="Email" errorMessage={errors.email?.message}>
+        <input type="email" {...register("email")} />
       </FormField>
       <FormField label="Пароль" errorMessage={errors.password?.message}>
         <input type="password" {...register("password")} />
