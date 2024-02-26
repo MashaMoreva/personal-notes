@@ -37,6 +37,9 @@ export const RegisterForm: FC<IRegisterFormProps> = () => {
         email: string;
         password: string;
       }) => registerUser(data.username, data.email, data.password),
+      onSuccess() {
+        queryClient.invalidateQueries({ queryKey: ["me"] });
+      },
     },
     queryClient
   );
