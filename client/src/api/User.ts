@@ -20,7 +20,9 @@ export function registerUser(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ username, email, password }),
-  }).then(() => undefined);
+  })
+    .then(validateResponse)
+    .then(() => undefined);
 }
 
 export function login(username: string, password: string): Promise<void> {
